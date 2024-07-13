@@ -5,7 +5,7 @@ namespace CSLox
     class Token
     {
         readonly TokenType type;
-        readonly string lexeme;
+        internal readonly string lexeme;
         readonly object? literal;
         readonly int line;
 
