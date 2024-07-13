@@ -2,8 +2,6 @@
 {
     class Program
     {
-        private static ErrorReporter e = new ErrorReporter();
-
         public static int Main(string[] args)
         {
             if (args.Length > 1)
@@ -38,7 +36,7 @@
                 string? line = Console.ReadLine();
                 if (line == null) break;
                 run(line);
-                e.hadError = false;
+                ErrorReporter.defaultReporter.hadError = false;
             }
         }
 
@@ -53,7 +51,7 @@
                 Console.WriteLine(token);
             }
 
-            if (e.hadError)
+            if (ErrorReporter.defaultReporter.hadError)
             {
                 Environment.Exit(65);
             }
