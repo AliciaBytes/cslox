@@ -1,10 +1,11 @@
+using System.Diagnostics;
 using System.Text;
 
 namespace CSLox
 {
     class AstPrinter : Expr.Visitor<string>
     {
-        string print(Expr expr)
+        internal string print(Expr expr)
         {
             return expr.accept(this);
         }
@@ -23,7 +24,12 @@ namespace CSLox
         public string visitLiteralExpr(Expr.Literal expr)
         {
             if (expr.value == null) return "nil";
-            return expr.value.ToString();
+            string? result = expr.value.ToString();
+            if (result == null)
+            {
+                throw new UnreachableException("Result can't be null");
+            }
+            return result;
         }
 
         public string visitUnaryExpr(Expr.Unary expr)

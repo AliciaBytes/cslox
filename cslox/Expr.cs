@@ -4,24 +4,24 @@ namespace CSLox
     {
         internal interface Visitor<R>
         {
-            R visitAssignExpr(Assign expr);
+            // R visitAssignExpr(Assign expr);
             R visitBinaryExpr(Binary expr);
-            R visitCallExpr(Call expr);
-            R visitGetExpr(Get expr);
+            // R visitCallExpr(Call expr);
+            // R visitGetExpr(Get expr);
             R visitGroupingExpr(Grouping expr);
             R visitLiteralExpr(Literal expr);
-            R visitLogicalExpr(Logical expr);
-            R visitSetExpr(Set expr);
-            R visitSuperExpr(Super expr);
-            R visitThisExpr(This expr);
+            // R visitLogicalExpr(Logical expr);
+            // R visitSetExpr(Set expr);
+            // R visitSuperExpr(Super expr);
+            // R visitThisExpr(This expr);
             R visitUnaryExpr(Unary expr);
-            R visitVariableExpr(Variable expr);
+            // R visitVariableExpr(Variable expr);
         }
 
         // Nested Expr classes here...
         internal class Binary : Expr
         {
-            Binary(Expr left, Token op, Expr right)
+            internal Binary(Expr left, Token op, Expr right)
             {
                 this.left = left;
                 this.op = op;
@@ -40,7 +40,7 @@ namespace CSLox
 
         internal class Grouping : Expr
         {
-            Grouping(Expr expression)
+            internal Grouping(Expr expression)
             {
                 this.expression = expression;
             }
@@ -55,23 +55,22 @@ namespace CSLox
 
         internal class Literal : Expr
         {
-            Literal(object value)
+            internal Literal(object? value)
             {
                 this.value = value;
             }
 
-            @
             internal override R accept<R>(Visitor<R> visitor)
             {
                 return visitor.visitLiteralExpr(this);
             }
 
-            internal readonly object value;
+            internal readonly object? value;
         }
 
         internal class Unary : Expr
         {
-            Unary(Token op, Expr right)
+            internal Unary(Token op, Expr right)
             {
                 this.op = op;
                 this.right = right;

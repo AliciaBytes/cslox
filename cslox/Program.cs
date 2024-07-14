@@ -46,15 +46,13 @@
             List<Token> tokens = scanner.scanTokens();
 
             // For now just print each of the tokens.
-            foreach (Token token in tokens)
-            {
-                Console.WriteLine(token);
-            }
+            Parser parser = new Parser(tokens);
+            Expr expression = parser.parse();
 
-            if (ErrorReporter.defaultReporter.hadError)
-            {
-                Environment.Exit(65);
-            }
+            // Stop if there was a syntax error.
+            if (ErrorReporter.defaultReporter.hadError) return;
+
+            Console.WriteLine(new AstPrinter().print(expression));
         }
     }
 }
