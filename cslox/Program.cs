@@ -2,6 +2,7 @@
 {
     class Program
     {
+        private readonly static Interpreter interpreter = new Interpreter();
         public static int Main(string[] args)
         {
             if (args.Length > 1)
@@ -50,9 +51,10 @@
             Expr expression = parser.parse();
 
             // Stop if there was a syntax error.
-            if (ErrorReporter.defaultReporter.hadError) return;
+            if (ErrorReporter.defaultReporter.hadError) Environment.Exit(65);
+            if (ErrorReporter.defaultReporter.hadRuntimeError) Environment.Exit(70);
 
-            Console.WriteLine(new AstPrinter().print(expression));
+            interpreter.interpret(expression);
         }
     }
 }

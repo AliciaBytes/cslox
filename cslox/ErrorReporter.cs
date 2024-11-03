@@ -5,6 +5,7 @@ namespace CSLox
         public static ErrorReporter defaultReporter = new ErrorReporter();
 
         public bool hadError { get; set; }
+        public bool hadRuntimeError { get; set; }
 
         public ErrorReporter()
         {
@@ -31,6 +32,12 @@ namespace CSLox
             {
                 report(token.line, " at '" + token.lexeme + "'", message);
             }
+        }
+
+        internal void runtimeError(RuntimeError error)
+        {
+            Console.Error.WriteLine(error.Message + "\n[line " + error.token.line + "]");
+            hadRuntimeError = true;
         }
     }
 }
